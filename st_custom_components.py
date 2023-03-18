@@ -4,6 +4,7 @@ import streamlit as st
 from io import BytesIO
 import streamlit.components.v1 as components
 
+
 def st_audiorec():
 
     # get parent directory relative to current directory
@@ -20,14 +21,14 @@ def st_audiorec():
     # the frontend returns raw audio data in the form of arraybuffer
     # (this arraybuffer is derived from web-media API WAV-blob data)
 
-    if isinstance(raw_audio_data, dict):  # retrieve audio data
-        with st.spinner('retrieving audio-recording...'):
-            ind, raw_audio_data = zip(*raw_audio_data['arr'].items())
-            ind = np.array(ind, dtype=int)  # convert to np array
-            raw_audio_data = np.array(raw_audio_data)  # convert to np array
-            sorted_ints = raw_audio_data[ind]
-            stream = BytesIO(b"".join([int(v).to_bytes(1, "big") for v in sorted_ints]))
+    # if isinstance(raw_audio_data, dict):  # retrieve audio data
+    #     with st.spinner('retrieving audio-recording...'):
+    #         ind, raw_audio_data = zip(*raw_audio_data['arr'].items())
+    #         ind = np.array(ind, dtype=int)  # convert to np array
+    #         raw_audio_data = np.array(raw_audio_data)  # convert to np array
+    #         sorted_ints = raw_audio_data[ind]
+            # stream = BytesIO(b"".join([int(v).to_bytes(1, "big") for v in sorted_ints]))
             # wav_bytes contains audio data in byte format, ready to be processed further
-            wav_bytes = stream.read()
+            # wav_bytes = stream.read()
 
     return wav_bytes
