@@ -57,18 +57,18 @@ def build_model(model_name):
 
     models = {
         "VGG-Face": VGGFace.loadModel,
-        "OpenFace": OpenFace.loadModel,
-        "Facenet": Facenet.loadModel,
-        "Facenet512": Facenet512.loadModel,
-        "DeepFace": FbDeepFace.loadModel,
-        "DeepID": DeepID.loadModel,
-        "Dlib": DlibWrapper.loadModel,
-        "ArcFace": ArcFace.loadModel,
-        "SFace": SFace.load_model,
+        # "OpenFace": OpenFace.loadModel,
+        # "Facenet": Facenet.loadModel,
+        # "Facenet512": Facenet512.loadModel,
+        # "DeepFace": FbDeepFace.loadModel,
+        # "DeepID": DeepID.loadModel,
+        # "Dlib": DlibWrapper.loadModel,
+        # "ArcFace": ArcFace.loadModel,
+        # "SFace": SFace.load_model,
         "Emotion": Emotion.loadModel,
-        "Age": Age.loadModel,
-        "Gender": Gender.loadModel,
-        "Race": Race.loadModel,
+        # "Age": Age.loadModel,
+        # "Gender": Gender.loadModel,
+        # "Race": Race.loadModel,
     }
 
     if not "model_obj" in globals():
@@ -224,7 +224,7 @@ def verify(
 
 def analyze(
     img_path,
-    actions=("emotion", "age", "gender", "race"),
+    actions=("emotion"),
     enforce_detection=True,
     detector_backend="opencv",
     align=True,
@@ -299,14 +299,6 @@ def analyze(
     if "emotion" in actions:
         models["emotion"] = build_model("Emotion")
 
-    if "age" in actions:
-        models["age"] = build_model("Age")
-
-    if "gender" in actions:
-        models["gender"] = build_model("Gender")
-
-    if "race" in actions:
-        models["race"] = build_model("Race")
     # ---------------------------------
     resp_objects = []
 
@@ -344,32 +336,6 @@ def analyze(
                         obj["emotion"][emotion_label] = emotion_prediction
 
                     obj["dominant_emotion"] = Emotion.labels[np.argmax(emotion_predictions)]
-
-                elif action == "age":
-                    age_predictions = models["age"].predict(img_content, verbose=0)[0, :]
-                    apparent_age = Age.findApparentAge(age_predictions)
-                    # int cast is for exception - object of type 'float32' is not JSON serializable
-                    obj["age"] = int(apparent_age)
-
-                elif action == "gender":
-                    gender_predictions = models["gender"].predict(img_content, verbose=0)[0, :]
-                    obj["gender"] = {}
-                    for i, gender_label in enumerate(Gender.labels):
-                        gender_prediction = 100 * gender_predictions[i]
-                        obj["gender"][gender_label] = gender_prediction
-
-                    obj["dominant_gender"] = Gender.labels[np.argmax(gender_predictions)]
-
-                elif action == "race":
-                    race_predictions = models["race"].predict(img_content, verbose=0)[0, :]
-                    sum_of_predictions = race_predictions.sum()
-
-                    obj["race"] = {}
-                    for i, race_label in enumerate(Race.labels):
-                        race_prediction = 100 * race_predictions[i] / sum_of_predictions
-                        obj["race"][race_label] = race_prediction
-
-                    obj["dominant_race"] = Race.labels[np.argmax(race_predictions)]
 
                 # -----------------------------
                 # mention facial areas
