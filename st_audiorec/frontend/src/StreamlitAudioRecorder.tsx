@@ -62,8 +62,8 @@ class StAudioRec extends StreamlitComponentBase<State> {
             type='audio/wav'
             backgroundColor='rgb(255, 255, 255)'
             foregroundColor='rgb(255,76,75)'
-            canvasWidth={450}
-            canvasHeight={100}
+            canvasWidth={600}
+            canvasHeight={250}
           />
 
           <audio
