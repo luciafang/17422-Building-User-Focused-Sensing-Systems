@@ -47,6 +47,7 @@ llvmlite==0.39.1
 Markdown==3.4.1
 markdown-it-py==2.2.0
 MarkupSafe==2.1.2
+matplotlib==2.2.3
 mdurl==0.1.2
 msgpack==1.0.5
 mtcnn==0.1.1
@@ -63,7 +64,6 @@ protobuf==3.19.6
 pyarrow==11.0.0
 pyasn1==0.4.8
 pyasn1-modules==0.2.8
-PyAudio==0.2.11
 pycparser==2.21
 pydeck==0.8.0
 Pygments==2.14.0

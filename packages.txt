@@ -4,3 +4,7 @@ python-all-dev
 python3-all-dev
 libfreetype6-dev
 python-dev
+libasound-dev
+libportaudio2
+libportaudiocpp0
+python3-pyaudio
