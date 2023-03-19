@@ -7,6 +7,8 @@ import pandas as pd
 import cv2
 from deepface import DeepFace
 from deepface.commons import functions
+from emotion_recognition import EmotionRecognizer
+import pickle
 
 
 # dependency configuration
@@ -16,8 +18,12 @@ os.environ["TF_CPP_MIN_LOG_LEVEL"] = "2"
 
 picture = st.camera_input("Take a picture")
 audio_bytes = audio_recorder()
+with open('emotion_model.pkl', 'rb') as fr:
+    rec = pickle.load(fr)
 if audio_bytes:
     st.audio(audio_bytes, format="audio/wav")
+    speech_emo = rec.predict(audio_bytes)
+    st.writes(speech_emo)
 
 if picture:
     img_bytes = picture.getvalue()
