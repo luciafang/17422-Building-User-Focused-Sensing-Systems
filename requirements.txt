@@ -47,7 +47,6 @@ llvmlite==0.39.1
 Markdown==3.4.1
 markdown-it-py==2.2.0
 MarkupSafe==2.1.2
-matplotlib==2.2.3
 mdurl==0.1.2
 msgpack==1.0.5
 mtcnn==0.1.1
