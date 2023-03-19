@@ -4,47 +4,26 @@ import pyaudio
 import pickle
 from emotion_recognition import EmotionRecognizer
 import pandas as pd
+from audio_recorder_streamlit import audio_recorder
 
 
 def load_view():
-    st.subheader('How is your day?')
-    CHUNK = 1024
-    FORMAT = pyaudio.paInt16
-    CHANNELS = 1
-    RATE = 44100
+    st.subheader('How was your day?')
     WAVE_OUTPUT_FILENAME = "output.wav"
     with open('emotion_model.pkl', 'rb') as fr:
         rec = pickle.load(fr)
-
     colL, colR = st.columns(2)
-    session_expander = colL.expander('Session details', expanded=True)
-    session_length = session_expander.number_input('Session length:',
-                                     min_value=3, max_value=90, value=5)
-    session_begin = session_expander.button('Start Session')
+    session_expander = colL.expander('Record your voice', expanded=True)
     emotion_expander = colR.expander('Predicted emotion', expanded=True)
-
-    if session_begin:
-        p = pyaudio.PyAudio()
-        stream = p.open(format=FORMAT,
-                        channels=CHANNELS,
-                        rate=RATE,
-                        input=True,
-                        frames_per_buffer=CHUNK)
-        with st.spinner("Recording..."):
-            frames = []
-            for i in range(0, int(RATE / CHUNK * session_length)):
-                data = stream.read(CHUNK)
-                frames.append(data)
-            # st.success("Done recording")
-            stream.stop_stream()
-            stream.close()
-            p.terminate()
-            wf = wave.open(WAVE_OUTPUT_FILENAME, 'wb')
-            wf.setnchannels(CHANNELS)
-            wf.setsampwidth(p.get_sample_size(FORMAT))
-            wf.setframerate(RATE)
-            wf.writeframes(b''.join(frames))
-            wf.close()
+    with session_expander:
+        audio_bytes = audio_recorder()
+    if audio_bytes:
+        session_expander.audio(audio_bytes, format="audio/wav")
+        with wave.open(WAVE_OUTPUT_FILENAME, "wb") as audiofile:
+            audiofile.setsampwidth(2)
+            audiofile.setnchannels(1)
+            audiofile.setframerate(96000)
+            audiofile.writeframes(audio_bytes)
 
         emotions_by_speech = rec.predict_proba(WAVE_OUTPUT_FILENAME)
         emotion_df = pd.DataFrame(
@@ -60,5 +39,4 @@ def load_view():
                 current_emotion.append(instance["emotion"])
                 emotion_score.append(instance["score"])
         emotion_expander.table(emotion_df)
-        colL.audio(WAVE_OUTPUT_FILENAME, format="audio/wav")
         st.success(f'Based on your tone, you are most likely feeling: {current_emotion[0]}')

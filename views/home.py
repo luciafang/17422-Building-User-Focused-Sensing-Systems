@@ -2,7 +2,7 @@ import streamlit as st
 
 def load_view():
     st.header('Welcome to Emotion2Music')
-    st.subheader('A music therapy virtual assistant.')
+    st.subheader('A music therapy virtual assistant')
     desc_box = st.expander('Description', expanded=True)
     desc_box.write("""
     This assistant will analyze your emotions using a holistic approach. \n
