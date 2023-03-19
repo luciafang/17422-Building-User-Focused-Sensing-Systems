@@ -16,7 +16,7 @@ def load_view():
     session_expander = colL.expander('Record your voice', expanded=True)
     emotion_expander = colR.expander('Predicted emotion', expanded=True)
     with session_expander:
-        audio_bytes = audio_recorder(sample_rate=96000)
+        audio_bytes = audio_recorder()
     if audio_bytes:
         session_expander.audio(audio_bytes, format="audio/wav")
         with wave.open(WAVE_OUTPUT_FILENAME, "wb") as audiofile:
