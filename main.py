@@ -25,7 +25,7 @@ if audio_bytes:
     with wave.open("./myaudiofile.wav", "wb") as audiofile:
         audiofile.setsampwidth(2)
         audiofile.setnchannels(1)
-        audiofile.setframerate(41000)
+        audiofile.setframerate(100000)
         audiofile.writeframes(audio_bytes)
     speech_emo = rec.predict('./myaudiofile.wav')
     st.write(speech_emo)
