@@ -9,7 +9,7 @@ from deepface import DeepFace
 from deepface.commons import functions
 from emotion_recognition import EmotionRecognizer
 import pickle
-
+import wave
 
 # dependency configuration
 os.environ["TF_CPP_MIN_LOG_LEVEL"] = "2"
@@ -22,8 +22,13 @@ with open('emotion_model.pkl', 'rb') as fr:
     rec = pickle.load(fr)
 if audio_bytes:
     st.audio(audio_bytes, format="audio/wav")
-    speech_emo = rec.predict(audio_bytes)
-    st.writes(speech_emo)
+    with wave.open("./myaudiofile.wav", "wb") as audiofile:
+        audiofile.setsampwidth(2)
+        audiofile.setnchannels(1)
+        audiofile.setframerate(44100)
+        audiofile.writeframes(audio_bytes)
+    speech_emo = rec.predict('./myaudiofile.wav')
+    st.write(speech_emo)
 
 if picture:
     img_bytes = picture.getvalue()
