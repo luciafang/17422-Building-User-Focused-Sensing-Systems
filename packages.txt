@@ -1,4 +1,3 @@
 libgl1
 libfreetype6-dev
-libpng12-dev
 python-dev
