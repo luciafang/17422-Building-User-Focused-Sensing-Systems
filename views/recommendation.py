@@ -1,4 +1,4 @@
 import streamlit as st
 
 def load_view():
-    st.title('Music Recommendation')
+    st.subheader('Music Recommendation')
