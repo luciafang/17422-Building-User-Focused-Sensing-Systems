@@ -1,8 +1,6 @@
 import streamlit as st
 import wave
-import pyaudio
 import pickle
-from emotion_recognition import EmotionRecognizer
 import pandas as pd
 from audio_recorder_streamlit import audio_recorder
 
