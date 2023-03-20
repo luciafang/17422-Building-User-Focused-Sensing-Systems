@@ -10,9 +10,10 @@ selected = option_menu(None, ["home", "speech analysis", "expression analysis", 
                        styles={
                            "container": {"padding": "0!important", "background-color": "#fafafa"},
                            "icon": {"color": "black", "font-size": "20px"},
-                           "nav-link": {"font-size": "16px", "text-align": "center", "margin": "0px",
+                           "nav-link": {"color": "black", "font-size": "16px", "text-align": "center", "margin": "0px",
                                         "--hover-color": "#eee"},
-                           "nav-link-selected": {"font-size": "16px", "font-weight": "normal",},
+                           "nav-link-selected": {"font-size": "16px", "font-weight": "normal",
+                                                 "color": "black", "background-color":"#CCADCF"},
                        }
                        )
 
