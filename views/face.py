@@ -1,13 +1,13 @@
 import streamlit as st
-import os
+import os 
 import time
 import pandas as pd
-import cv2
+import cv2 #rgb. bgr 
 import numpy as np
 from deepface import DeepFace
 from deepface.commons import functions
 
-
+#tweak code from DeepFace.commons.realtime.analyze  
 def load_view():
     st.subheader('Take a picture of how you really feel.')
     os.environ["TF_CPP_MIN_LOG_LEVEL"] = "2"
@@ -15,13 +15,14 @@ def load_view():
     image_placeholder = colR.empty()
     live_expander = colL.expander('Take a picture', expanded=True)
     emotion_expander = colR.expander('Predicted emotion', expanded=True)
-    picture = live_expander.camera_input(" ")
+    picture = live_expander.camera_input(" ") ##added a live camera 
 
+    #from DeepFace.commons.realtime.analyze  
     if picture:
         img_bytes = picture.getvalue()
         img = cv2.imdecode(np.frombuffer(img_bytes, np.uint8), cv2.IMREAD_COLOR)
         model_name = "VGG-Face"
-        detector_backend = "opencv"
+        detector_backend = "mediapipe" #tweak into mediapipe 
         distance_metric = "cosine"
         enable_face_analysis = True
 
@@ -130,9 +131,9 @@ def load_view():
                         current_emotion = []
                         emotion_score = []
                         for index, instance in emotion_df.iterrows():
-                            if index < 3:
+                            if index < 3: #limited to Top3 
                                 current_emotion.append(instance["emotion"])
                                 # emotion_label = f"{current_emotion} "
                                 emotion_score.append(instance["score"] / 100)
-            emotion_expander.table(emotion_df)
-            st.success(f'Based on your expression, you are most likely feeling: {current_emotion[0]}')
+            emotion_expander.table(emotion_df) #place a table on the right
+            st.success(f'Based on your expression, you are most likely feeling: {current_emotion[0]}') #use the highest emotin score

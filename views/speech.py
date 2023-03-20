@@ -1,6 +1,6 @@
 import streamlit as st
-import wave
-import pickle
+import wave #save soundbytes to .wav file 
+import pickle #load the emotional classifier based on speech 
 import pandas as pd
 from audio_recorder_streamlit import audio_recorder
 
@@ -37,4 +37,7 @@ def load_view():
                 current_emotion.append(instance["emotion"])
                 emotion_score.append(instance["score"])
         emotion_expander.table(emotion_df)
+        st.info(current_emotion)
+        st.warning(emotion_score)
+        st.error('ERROR')
         st.success(f'Based on your tone, you are most likely feeling: {current_emotion[0]}')
