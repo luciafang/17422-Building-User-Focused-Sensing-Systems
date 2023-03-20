@@ -18,13 +18,13 @@ def load_view():
     with session_expander:
         audio_bytes = audio_recorder()
     if audio_bytes:
-        session_expander.audio(audio_bytes, format="audio/wav")
+
         with wave.open(WAVE_OUTPUT_FILENAME, "wb") as audiofile:
             audiofile.setsampwidth(2)
             audiofile.setnchannels(1)
             audiofile.setframerate(96000)
             audiofile.writeframes(audio_bytes)
-
+        session_expander.audio(WAVE_OUTPUT_FILENAME, format="audio/wav")
         emotions_by_speech = rec.predict_proba(WAVE_OUTPUT_FILENAME)
         emotion_df = pd.DataFrame(
             emotions_by_speech.items(), columns=["emotion", "score"]
