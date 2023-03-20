@@ -22,7 +22,7 @@ def load_view():
         img_bytes = picture.getvalue()
         img = cv2.imdecode(np.frombuffer(img_bytes, np.uint8), cv2.IMREAD_COLOR)
         model_name = "VGG-Face"
-        detector_backend = "mediapipe" #tweak into mediapipe 
+        detector_backend = "opencv"
         distance_metric = "cosine"
         enable_face_analysis = True
 
