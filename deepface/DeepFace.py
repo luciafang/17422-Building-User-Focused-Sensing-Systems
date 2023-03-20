@@ -226,7 +226,7 @@ def analyze(
     img_path,
     actions=("emotion"),
     enforce_detection=True,
-    detector_backend="opencv",
+    detector_backend="mediapipe",
     align=True,
     silent=False,
 ):
@@ -657,12 +657,12 @@ def represent(
 def stream(
     db_path="",
     model_name="VGG-Face",
-    detector_backend="opencv",
+    detector_backend="mediapipe",
     distance_metric="cosine",
     enable_face_analysis=True,
     source=0,
-    time_threshold=0.2,
-    frame_threshold=1,
+    time_threshold=5,
+    frame_threshold=5,
 ):
 
     """
@@ -715,7 +715,7 @@ def stream(
 def extract_faces(
     img_path,
     target_size=(224, 224),
-    detector_backend="opencv",
+    detector_backend="mediapipe",
     enforce_detection=True,
     align=True,
     grayscale=False,
