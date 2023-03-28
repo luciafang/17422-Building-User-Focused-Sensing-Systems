@@ -3,7 +3,13 @@ from views import home, speech, face, recommendation
 from streamlit_option_menu import option_menu
 
 st.set_page_config(layout="wide", page_title='Emotion2Music', page_icon='😊')
+hide_streamlit_style = """
+            <style>
 
+            footer {visibility: hidden;}
+            </style>
+            """
+st.markdown(hide_streamlit_style, unsafe_allow_html=True)
 selected = option_menu(None, ["home", "speech analysis", "expression analysis", 'music recommendation'],
                        icons=['house', 'soundwave', "emoji-laughing", 'file-earmark-music'],
                        menu_icon="cast", default_index=0, orientation="horizontal",

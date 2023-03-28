@@ -137,3 +137,9 @@ def load_view():
                                 emotion_score.append(instance["score"] / 100)
             emotion_expander.table(emotion_df) #place a table on the right
             st.success(f'Based on your expression, you are most likely feeling: {current_emotion[0]}') #use the highest emotin score
+    bottom_cont = st.container()
+    with bottom_cont:
+        st.markdown("""---""")
+        st.write('')
+        st.markdown('<span style="color:grey">{}</span>'.format('Emotion2Music is developed by Lucia Fang'),
+                    unsafe_allow_html=True)

@@ -8,8 +8,8 @@ def load_view():
     desc_box.write("""
     Welcome to our interactive emotional analysis assistant!\n
     Here, we take a holistic approach to understanding your emotions. \n
-    Our assistant will start by asking you about your day in any language you prefer. 
-    From the way you speak, it will predict and analyze your top three emotions. \n
+    Our assistant will start by asking you about your day. 
+    From your description of your day, it will predict and analyze your emotion using ChatGPT. \n
     But that's not all - our assistant takes it one step further. 
     We also require a picture of how you're truly feeling about your day, 
     analyzing your top three emotions from your facial expression.
@@ -17,3 +17,9 @@ def load_view():
     So sit back, relax, and let our assistant help you understand and manage your emotions like never before.
     # """)
     # desc_box.image("https://static.streamlit.io/examples/dice.jpg")
+    bottom_cont = st.container()
+    with bottom_cont:
+        st.markdown("""---""")
+        st.write('')
+        st.markdown('<span style="color:grey">{}</span>'.format('Emotion2Music is developed by Lucia Fang'),
+                    unsafe_allow_html=True)
