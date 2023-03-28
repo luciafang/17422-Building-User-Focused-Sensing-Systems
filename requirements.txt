@@ -7,6 +7,7 @@ audio-recorder-streamlit==0.0.8
 audioread==3.0.0
 beautifulsoup4==4.11.2
 blinker==1.5
+bokeh==3.1.0
 cachetools==5.3.0
 certifi==2022.12.7
 cffi==1.15.1
@@ -16,6 +17,7 @@ contourpy==1.0.7
 cycler==0.11.0
 decorator==5.1.1
 deepface==0.0.79
+deepspeech==0.9.3
 entrypoints==0.4
 filelock==3.10.0
 fire==0.5.0
@@ -95,6 +97,7 @@ soupsieve==2.4
 soxr==0.3.4
 speechrecognition==3.8.1
 streamlit==1.20.0
+streamlit-bokeh-events==0.1.2
 streamlit-option-menu==0.3.2
 tensorboard==2.11.2
 tensorboard-data-server==0.6.1
