@@ -54,7 +54,7 @@ def load_view():
         try:
             if result:
                 if "GET_TEXT" in result:
-                    user_text = {result.get('GET_TEXT')}
+                    user_text = result.get('GET_TEXT')
                     prompt = f"{result.get('GET_TEXT')}. {default_prompt}"
                     response = ""
                     session_expander.write(f'User: {user_text}')
