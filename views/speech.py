@@ -49,14 +49,15 @@ def load_view():
             key="listen",
             refresh_on_update=False,
             override_height=45,
-            debounce_time=0)
+            debounce_time=2)
 
         try:
             if result:
                 if "GET_TEXT" in result:
+                    user_text = {result.get('GET_TEXT')}
                     prompt = f"{result.get('GET_TEXT')}. {default_prompt}"
                     response = ""
-                    session_expander.write(f'User: {prompt}')
+                    session_expander.write(f'User: {user_text}')
                     for data in chatbot.ask(
                             prompt
                     ):
