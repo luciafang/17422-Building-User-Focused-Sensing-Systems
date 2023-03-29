@@ -1,6 +1,12 @@
 import streamlit as st
-import webbrowser
+# import webbrowser
 import numpy as np
+
+def nav_to(url):
+    nav_script = """
+        <meta http-equiv="refresh" content="0; url='%s'">
+    """ % (url)
+    st.write(nav_script, unsafe_allow_html=True)
 
 
 def load_view():
@@ -18,7 +24,9 @@ def load_view():
             st.warning("Please let me capture your emotion first")
             st.session_state["run"] = "true"
         else:
-            webbrowser.open_new_tab(f"https://open.spotify.com/search/{final_emotion} chinese playlist")
+            url = f"https://open.spotify.com/search/{final_emotion} chinese playlist"
+            nav_to(url)
+            # webbrowser.open_new_tab(f"https://open.spotify.com/search/{final_emotion} chinese playlist")
             # np.save("emotion.npy", np.array([""]))
             st.session_state["run"] = "false"
     bottom_cont = st.container()
