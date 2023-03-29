@@ -137,6 +137,7 @@ def load_view():
                                 emotion_score.append(instance["score"] / 100)
             emotion_expander.table(emotion_df) #place a table on the right
             st.success(f'Based on your expression, you are most likely feeling: {current_emotion[0]}') #use the highest emotin score
+            np.save('./facial_emotion.npy', current_emotion)
     bottom_cont = st.container()
     with bottom_cont:
         st.markdown("""---""")

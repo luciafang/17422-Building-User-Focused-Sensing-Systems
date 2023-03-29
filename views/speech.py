@@ -1,74 +1,112 @@
 import streamlit as st
-from bokeh.models import CustomJS
-from bokeh.models.widgets import Button
 from revChatGPT.V1 import Chatbot
-from streamlit_bokeh_events import streamlit_bokeh_events
+from audio_recorder_streamlit import audio_recorder
+import wave
+import speech_recognition as sr
+import numpy as np
 
 
 def load_view():
-    st.subheader('How was your day?')
+    # st.subheader('How was your day?')
     default_prompt = "Of the following emotions, which am I most likely feeling right now: " \
                      "angry, fear, neutral, sad, disgust, happy, surprise. Pick only one."
     emotions_list = ['angry', 'fear', 'neutral', 'sad', 'disgust', 'happy', 'surprise']
 
-    # with open('emotion_model.pkl', 'rb') as fr:
-    #     rec = pickle.load(fr)
-    colL, colR = st.columns(2)
-    session_expander = colL.expander('Record your voice', expanded=True)
-    emotion_expander = colR.expander('Predicted emotion', expanded=True)
-
+    WAVE_OUTPUT_FILENAME = './output.wav'
     chatbot = Chatbot(config={
         "email": "ahsu2@andrew.cmu.edu",
         "password": "+zapubno1"
     })
 
-    with session_expander:
-        stt_button = Button(label="Talk to me!", width=150, button_type="primary")
+    _, colL,  colR = st.columns([1, 2, 2])
+    record_expander = colR.expander("", expanded=True)
+    # colL, colM, colR = st.columns([5, 3, 5])
+    colR.write('')
+    colR.write('')
+    colR.write('')
+    colR.write('')
+    colR.write('')
+    colR.write('')
+    colR.write('')
+    colR.write('')
+    colL.image('./images/speechpage_logo.png')
 
-        stt_button.js_on_event("button_click", CustomJS(code="""
-            var recognition = new webkitSpeechRecognition();
-            recognition.continuous = true;
-            recognition.interimResults = true;
-            recognition.onresult = function (e) {
-                var value = "";
-                for (var i = e.resultIndex; i < e.results.length; ++i) {
-                    if (e.results[i].isFinal) {
-                        value += e.results[i][0].transcript;
-                    }
-                }
-                if ( value != "") {
-                    document.dispatchEvent(new CustomEvent("GET_TEXT", {detail: value}));
-                }
-            }
-            recognition.start();
-            """))
+    emotion_expander = st.expander('Predicted emotion', expanded=True)
+    with colR:
+        audio_bytes = audio_recorder(text=""
+                                     ,
+                                     # recording_color="#e8b62c",
+                                     # neutral_color="#6aa36f",
+                                     # icon_name="user",
+                                     icon_size="5x", )
+        if audio_bytes:
+            with wave.open(WAVE_OUTPUT_FILENAME, "wb") as audiofile:
+                audiofile.setsampwidth(2)
+                audiofile.setnchannels(2)
+                audiofile.setframerate(44100)
+                audiofile.writeframes(audio_bytes)
 
-        result = streamlit_bokeh_events(
-            stt_button,
-            events="GET_TEXT",
-            key="listen",
-            refresh_on_update=False,
-            override_height=45,
-            debounce_time=2)
 
-        try:
-            if result:
-                if "GET_TEXT" in result:
-                    user_text = result.get('GET_TEXT')
-                    prompt = f"{result.get('GET_TEXT')}. {default_prompt}"
-                    response = ""
-                    session_expander.write(f'User: {user_text}')
-                    for data in chatbot.ask(
-                            prompt
-                    ):
-                        response = data["message"]
-                    emotion_expander.write(f'ChatGPT: {response}')
-                    for emotion in emotions_list:
-                        if emotion in response:
-                            current_emotion = emotion
-                    emotion_expander.success(f'Based on your statement, you are most likely feeling: {current_emotion}')
-        except:
-            pass
+    r = sr.Recognizer()
+    with sr.AudioFile(WAVE_OUTPUT_FILENAME) as source:
+        # listen for the data (load audio to memory)
+        r.adjust_for_ambient_noise(source)
+        audio_data = r.listen(source)
+        # recognize (convert from speech to text)
+        user_text = r.recognize_google(audio_data)
+    prompt = f"{user_text}. {default_prompt}"
+    response = ""
+    # emotion_expander.write(f'User: {user_text}')
+    for data in chatbot.ask(
+            prompt
+    ):
+        response = data["message"]
+    emotion_expander.write(f'ChatGPT: {response}')
+    for emotion in emotions_list:
+        if emotion in response:
+            current_emotion = emotion
+    try:
+        emotion_expander.success(f'Based on your statement, you are most likely feeling: {current_emotion}')
+    except:
+        emotion_expander.warning(f"No emotion detected.")
+    np.save('./speech_emotion.npy', current_emotion)
+
+    # WAVE_OUTPUT_FILENAME = './output.wav'
+    # with session_expander:
+    #     audio_bytes = audio_recorder(text="   ",
+    #                                  # recording_color="#e8b62c",
+    #                                  # neutral_color="#6aa36f",
+    #                                  # icon_name="user",
+    #                                  icon_size="6x",)
+    # if audio_bytes:
+    #     with wave.open(WAVE_OUTPUT_FILENAME, "wb") as audiofile:
+    #         audiofile.setsampwidth(2)
+    #         audiofile.setnchannels(2)
+    #         audiofile.setframerate(44100)
+    #         audiofile.writeframes(audio_bytes)
+    # r = sr.Recognizer()
+    # with sr.AudioFile(WAVE_OUTPUT_FILENAME) as source:
+    #     # listen for the data (load audio to memory)
+    #     r.adjust_for_ambient_noise(source)
+    #     audio_data = r.listen(source)
+    #     # recognize (convert from speech to text)
+    #     user_text = r.recognize_google(audio_data)
+    # prompt = f"{user_text}. {default_prompt}"
+    # response = ""
+    # session_expander.write(f'User: {user_text}')
+    # for data in chatbot.ask(
+    #         prompt
+    # ):
+    #     response = data["message"]
+    # emotion_expander.write(f'ChatGPT: {response}')
+    # for emotion in emotions_list:
+    #     if emotion in response:
+    #         current_emotion = emotion
+    # try:
+    #     emotion_expander.success(f'Based on your statement, you are most likely feeling: {current_emotion}')
+    # except:
+    #     emotion_expander.warning(f"No emotion detected.")
+
 
 
     # if session_expander.button('Talk to me!'):
