@@ -18,7 +18,7 @@ def load_view():
             st.warning("Please let me capture your emotion first")
             st.session_state["run"] = "true"
         else:
-            webbrowser.open(f"https://open.spotify.com/search/{final_emotion} chinese playlist")
+            webbrowser.open_new_tab(f"https://open.spotify.com/search/{final_emotion} chinese playlist")
             # np.save("emotion.npy", np.array([""]))
             st.session_state["run"] = "false"
     bottom_cont = st.container()
