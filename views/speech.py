@@ -31,6 +31,10 @@ def load_view():
     colR.write('')
     colR.write('')
     colR.write('')
+    colR.write('')
+    colR.write('')
+    colR.write('')
+    colR.write('')
     colL.image('./images/speechpage_logo.png')
 
     emotion_expander = st.expander('Predicted emotion', expanded=True)
@@ -40,7 +44,7 @@ def load_view():
                                      # recording_color="#e8b62c",
                                      # neutral_color="#6aa36f",
                                      # icon_name="user",
-                                     icon_size="5x", )
+                                     icon_size="8x", )
 
         if audio_bytes:
             with wave.open(WAVE_OUTPUT_FILENAME, "wb") as audiofile:

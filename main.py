@@ -10,7 +10,7 @@ hide_streamlit_style = """
             </style>
             """
 _, center, _ = st.columns([1, 12, 0.1])
-st.image('./images/Thumbnail.jpg')
+st.image('./images/logo_white.png')
 st.markdown(hide_streamlit_style, unsafe_allow_html=True)
 selected = option_menu(None, ["home", "speech analysis", "expression analysis", 'music recommendation'],
                        icons=['house', 'soundwave', "emoji-laughing", 'file-earmark-music'],

@@ -1,5 +1,4 @@
 import streamlit as st
-import numpy as np
 
 
 def load_view():
@@ -18,8 +17,6 @@ def load_view():
     So sit back, relax, and let our assistant help you understand and manage your emotions like never before.
     # """)
     # desc_box.image("https://static.streamlit.io/examples/dice.jpg")
-    emotion = np.load('./speech_emotion.npy')
-    st.write(emotion)
     bottom_cont = st.container()
     with bottom_cont:
         st.markdown("""---""")
