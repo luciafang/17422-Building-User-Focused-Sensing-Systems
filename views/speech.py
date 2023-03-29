@@ -4,6 +4,8 @@ from audio_recorder_streamlit import audio_recorder
 import wave
 import speech_recognition as sr
 import numpy as np
+import soundfile as sf
+import io
 
 
 def load_view():
@@ -39,6 +41,7 @@ def load_view():
                                      # neutral_color="#6aa36f",
                                      # icon_name="user",
                                      icon_size="5x", )
+
         if audio_bytes:
             with wave.open(WAVE_OUTPUT_FILENAME, "wb") as audiofile:
                 audiofile.setsampwidth(2)
@@ -69,7 +72,8 @@ def load_view():
         emotion_expander.success(f'Based on your statement, you are most likely feeling: {current_emotion}')
     except:
         emotion_expander.warning(f"No emotion detected.")
-    np.save('./speech_emotion.npy', current_emotion)
+    # st.write(current_emotion)
+    np.save('./speech_emotion.npy', [current_emotion])
 
     # WAVE_OUTPUT_FILENAME = './output.wav'
     # with session_expander:

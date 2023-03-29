@@ -9,15 +9,16 @@ def load_view():
     face_emotion = np.load('./facial_emotion.npy')
     speech_emotion = np.load('./speech_emotion.npy')
     final_emotion = None
+    # st.write(face_emotion, speech_emotion)
     if speech_emotion in face_emotion:
-        st.write(speech_emotion)
-        # final_emotion = speech_emotion
+        # st.write(speech_emotion)
+        final_emotion = speech_emotion[0]
     if btn:
         if not (final_emotion):
             st.warning("Please let me capture your emotion first")
             st.session_state["run"] = "true"
         else:
-            webbrowser.open(f"https://open.spotify.com/search/{final_emotion}+song")
+            webbrowser.open(f"https://open.spotify.com/search/{final_emotion} chinese playlist")
             # np.save("emotion.npy", np.array([""]))
             st.session_state["run"] = "false"
     bottom_cont = st.container()
