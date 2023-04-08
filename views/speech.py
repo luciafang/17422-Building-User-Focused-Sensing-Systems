@@ -13,7 +13,7 @@ def load_view():
     default_prompt = "Of the following emotions, which am I most likely feeling right now: " \
                      "angry, fear, neutral, sad, disgust, happy, surprise. Pick only one."
     emotions_list = ['angry', 'fear', 'neutral', 'sad', 'disgust', 'happy', 'surprise']
-
+    color_list = ['red', '', '', 'blue', '', 'green', '']
     WAVE_OUTPUT_FILENAME = './output.wav'
     chatbot = Chatbot(config={
         # "email": "ahsu2@andrew.cmu.edu",
@@ -70,11 +70,13 @@ def load_view():
     ):
         response = data["message"]
     emotion_expander.write(f'ChatGPT: {response}')
-    for emotion in emotions_list:
+    for e, emotion in enumerate(emotions_list):
         if emotion in response:
             current_emotion = emotion
+            coloring = color_list[e]
     try:
-        emotion_expander.success(f'Based on your statement, you are most likely feeling: {current_emotion}')
+        # st.write(coloring)
+        emotion_expander.markdown(f'Based on your statement, you are most likely feeling: :{coloring}[{current_emotion}]')
     except:
         emotion_expander.warning(f"No emotion detected.")
     # st.write(current_emotion)
