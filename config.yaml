@@ -1,0 +1,14 @@
+cookie:
+  expiry_days: 30
+  key: some_signature_key
+  name: some_cookie_name
+credentials:
+  usernames:
+    luciafang:
+      email: luciafang@gmail.com
+      name: lucia
+      # 11111111
+      password: $2b$12$FEnP9xjLSKItdDh6djm/3e.04fFOpuvVMQYRfeZ9743wFMWMajdaq
+preauthorized:
+  emails:
+  - alexander.hsu.han@gmail.com
