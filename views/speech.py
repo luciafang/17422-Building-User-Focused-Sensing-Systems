@@ -54,6 +54,7 @@ def load_view():
                 audiofile.writeframes(audio_bytes)
 
     #Speech to Text ML Model 
+    # https://www.geeksforgeeks.org/python-convert-speech-to-text-and-text-to-speech/
     r = sr.Recognizer()
     with sr.AudioFile(WAVE_OUTPUT_FILENAME) as source:
         # listen for the data (load audio to memory)
