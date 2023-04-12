@@ -16,8 +16,6 @@ def load_view():
     color_list = ['red', '', '', 'blue', '', 'green', '']
     WAVE_OUTPUT_FILENAME = './output.wav'
     chatbot = Chatbot(config={
-        # "email": "ahsu2@andrew.cmu.edu",
-        # "password": "+zapubno1"
         "access_token": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6Ik1UaEVOVUpHTkVNMVFURTRNMEZCTWpkQ05UZzVNRFUxUlRVd1FVSkRNRU13UmtGRVFrRXpSZyJ9.eyJodHRwczovL2FwaS5vcGVuYWkuY29tL3Byb2ZpbGUiOnsiZW1haWwiOiJhaHN1MkBhbmRyZXcuY211LmVkdSIsImVtYWlsX3ZlcmlmaWVkIjp0cnVlfSwiaHR0cHM6Ly9hcGkub3BlbmFpLmNvbS9hdXRoIjp7InVzZXJfaWQiOiJ1c2VyLVF1QmtPRDFxVDRQc0dRRklmQjZtZjB5RSJ9LCJpc3MiOiJodHRwczovL2F1dGgwLm9wZW5haS5jb20vIiwic3ViIjoiYXV0aDB8NjQxZGU4YTYzOTU5M2Q4NGU0NjQ5YzRlIiwiYXVkIjpbImh0dHBzOi8vYXBpLm9wZW5haS5jb20vdjEiLCJodHRwczovL29wZW5haS5vcGVuYWkuYXV0aDBhcHAuY29tL3VzZXJpbmZvIl0sImlhdCI6MTY4MDkyNTgyNiwiZXhwIjoxNjgyMTM1NDI2LCJhenAiOiJUZEpJY2JlMTZXb1RIdE45NW55eXdoNUU0eU9vNkl0RyIsInNjb3BlIjoib3BlbmlkIHByb2ZpbGUgZW1haWwgbW9kZWwucmVhZCBtb2RlbC5yZXF1ZXN0IG9yZ2FuaXphdGlvbi5yZWFkIG9mZmxpbmVfYWNjZXNzIn0.gTPI0wtQH5faXU4SiqWChWMp-ftmbsyXFTU74sb96viY7VdWHn3Aj5QRdVVbUiSse-fBHFq5fWh4xSMTgZbnqzju1eZQJQRYJiWjssmutPMrVYxk5vWq1IpbD5DrwBXVRnZSASt-6yAxv8U2EKD8LPB8-970KFnrsBJ6hcKDfVnbmsh-Wg-SHDM72FuZc1533d-TL5R68JBnJdO_A_UxEzhbn32UzRH3I77ZO5r0xBqMa29dFh1S6flzRA0ngYi5zPygxn_gJu-8rlg2s19Ttn4ztt3KNPadzNMoXwenSGewHKwnxqpmnrMCVSYmy0nsHCffPdjHHbxF3rrvaKbz1g"
     })
 
@@ -40,13 +38,14 @@ def load_view():
 
     emotion_expander = st.expander('Predicted emotion', expanded=True)
     with colR:
+        #tutorial 
         audio_bytes = audio_recorder(text=""
                                      ,
                                      # recording_color="#e8b62c",
                                      # neutral_color="#6aa36f",
                                      # icon_name="user",
                                      icon_size="8x", )
-
+        #save audio file 
         if audio_bytes:
             with wave.open(WAVE_OUTPUT_FILENAME, "wb") as audiofile:
                 audiofile.setsampwidth(2)
@@ -54,7 +53,7 @@ def load_view():
                 audiofile.setframerate(44100)
                 audiofile.writeframes(audio_bytes)
 
-
+    #Speech to Text ML Model 
     r = sr.Recognizer()
     with sr.AudioFile(WAVE_OUTPUT_FILENAME) as source:
         # listen for the data (load audio to memory)
@@ -63,8 +62,9 @@ def load_view():
         # recognize (convert from speech to text)
         user_text = r.recognize_google(audio_data)
     prompt = f"{user_text}. {default_prompt}"
+    # revchatGPT
     response = ""
-    # emotion_expander.write(f'User: {user_text}')
+    # emotion_expander.write(f'User: {user_text}'
     for data in chatbot.ask(
             prompt
     ):
