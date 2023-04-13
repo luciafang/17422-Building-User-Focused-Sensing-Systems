@@ -2,24 +2,34 @@ import streamlit as st
 
 
 def load_view():
-    st.header('Welcome to Emotion2Music')
-    st.subheader('A music therapy virtual assistant')
+    st.markdown(f" <h1 style='text-align: left; color: #000000; font-size:30px; "
+                f"font-family:Avenir; font-weight:normal;'>Welcome to EmoSense </h1> "
+                , unsafe_allow_html=True)
+    # st.header('Welcome to Emotion2Music')
+    # st.subheader('A music therapy virtual assistant')
     desc_box = st.expander('Description', expanded=True)
     desc_box.write("""
-    Welcome to our interactive emotional analysis assistant!\n
-    Here, we take a holistic approach to understanding your emotions. \n
-    Our assistant will start by asking you about your day. 
-    From your description of your day, it will predict and analyze your emotion using ChatGPT. \n
-    But that's not all - our assistant takes it one step further. 
-    We also require a picture of how you're truly feeling about your day, 
-    analyzing your top three emotions from your facial expression.
-    With all this data, our assistant is then able to recommend a personalized music playlist just for you. 
-    So sit back, relax, and let our assistant help you understand and manage your emotions like never before.
-    # """)
+    Introducing "EmoSense", the cutting-edge no code website for emotion analysis.\n 
+    With our platform, you can easily record videos of individuals talking about their day,
+    extract images for facial expression prediction, and extract audio for semantic expression prediction. 
+    By combining both data sources, EmotionSense offers a holistic emotional classification 
+    that provides deeper insights into an individual's emotional state. \n
+    Our platform offers detailed and rigorous analysis, 
+    enabling you to identify emotional trends and patterns that may be affecting the individual's well-being. 
+    With our reactive visualization design, you can explore and interpret the data in real-time, 
+    gaining insights that would be impossible to identify otherwise.\n
+    And for those seeking professional help, 
+    EmotionSense offers the ability to download previous recordings for therapists to listen to, 
+    providing an even deeper level of insight and understanding. 
+    So why wait? Sign up for EmotionSense today and take the first step towards a deeper understanding of human emotions.
+    Here, we take a holistic approach to understanding your emotions. 
+    """)
     # desc_box.image("https://static.streamlit.io/examples/dice.jpg")
     bottom_cont = st.container()
     with bottom_cont:
         st.markdown("""---""")
         st.write('')
-        st.markdown('<span style="color:grey">{}</span>'.format('Emotion2Music is developed by Lucia Fang'),
-                    unsafe_allow_html=True)
+        st.markdown(f" <h1 style='text-align: left; color: gray; font-size:16px; "
+                    f"font-family:Avenir; font-weight:normal'>"
+                    f"Emotion2Music is developed by Lucia Fang</h1> "
+                    , unsafe_allow_html=True)

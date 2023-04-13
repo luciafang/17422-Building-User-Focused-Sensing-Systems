@@ -9,7 +9,9 @@ from deepface.commons import functions
 
 #tweak code from DeepFace.commons.realtime.analyze  
 def load_view():
-    st.subheader('Take a picture of how you really feel.')
+    st.markdown(f" <h1 style='text-align: left; color: #000000; font-size:30px; "
+                f"font-family:Avenir; font-weight:normal;'>Take a picture of how you feel </h1> "
+                , unsafe_allow_html=True)
     os.environ["TF_CPP_MIN_LOG_LEVEL"] = "2"
     colL, colR = st.columns(2)
     image_placeholder = colR.empty()
@@ -141,6 +143,7 @@ def load_view():
     bottom_cont = st.container()
     with bottom_cont:
         st.markdown("""---""")
-        st.write('')
-        st.markdown('<span style="color:grey">{}</span>'.format('Emotion2Music is developed by Lucia Fang'),
-                    unsafe_allow_html=True)
+        st.markdown(f" <h1 style='text-align: left; color: gray; font-size:16px; "
+                    f"font-family:Avenir; font-weight:normal'>"
+                    f"Emotion2Music is developed by Lucia Fang</h1> "
+                    , unsafe_allow_html=True)
