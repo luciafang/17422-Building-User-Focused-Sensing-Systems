@@ -25,7 +25,7 @@ banner = './images/pngs/color_transparent_banner.png'
 
 icon_img = Image.open(icon)
 st.set_page_config(layout="wide",
-                   page_title='Emotion2Music',
+                   page_title='EmoSense',
                    page_icon=icon_img)
 hide_streamlit_style = """
             <style>
@@ -80,7 +80,7 @@ if not authentication_status:
     with bottom_mid:
         st.markdown("""---""")
         st.markdown(f" <h1 style='text-align: center; color: #FF6A95; font-size:16px; "
-                    f"font-family:Avenir; font-weight:normal'>"
+                    f"font-family:Arial; font-weight:normal'>"
                     f"EmoSense is developed by Lucia Fang</h1> "
                     , unsafe_allow_html=True)
 elif authentication_status:
@@ -91,7 +91,7 @@ elif authentication_status:
         if 'user' not in st.session_state:
             st.session_state.user = username
         st.markdown(f" <h1 style='text-align: center; color: #FF6A95; font-size:18px; "
-                    f"font-family:Avenir ;font-weight:normal;'>Hello, {name}!</h1> "
+                    f"font-family:Arial ;font-weight:normal;'>Hello, {name}!</h1> "
                     , unsafe_allow_html=True)
         # selected = option_menu(None, ["Home", "speech analysis", "expression analysis", 'music recommendation',
         #                               "Record Video"],
@@ -118,10 +118,11 @@ elif authentication_status:
                                styles={
                                    "container": {"padding": "0!important", "background-color": "#fafafa"},
                                    "icon": {"color": "black", "font-size": "20px"},
-                                   "nav-link": {"color": "black", "font-size": "16px", "text-align": "center", "margin": "0px",
+                                   "nav-link": {"color": "black", "font-size": "16px",
+                                                "text-align": "center", "margin": "0px",
                                                 "--hover-color": "#eee"},
                                    "nav-link-selected": {"font-size": "16px", "font-weight": "normal",
-                                                         "color": "black", "background-color":"#CCADCF"},
+                                                         "color": "black", "background-color":"#FF6A95"},
                                }
                                )
         _, midcol, _ = st.columns([0.5, 1, 0.5])

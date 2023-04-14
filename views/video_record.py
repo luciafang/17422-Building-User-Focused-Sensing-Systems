@@ -167,7 +167,7 @@ def analyze_video_emotions(video_file, f_container):
 def load_view():
     HERE = Path(__file__).resolve().parent.parent
     st.markdown(f" <h1 style='text-align: left; color: #FF6A95; font-size:30px; "
-                f"font-family:Avenir; font-weight:normal;'>Analyze Emotions, Upload Video Now! </h1> "
+                f"font-family:Arial; font-weight:normal;'>Analyze Emotions, Upload Video Now! </h1> "
                 , unsafe_allow_html=True)
     st.write('')
     st.write('')
@@ -279,9 +279,9 @@ def load_view():
     bottom_cont = st.container()
     with bottom_cont:
         st.markdown("""---""")
-        st.write('')
+        # st.write('')
         st.markdown(f" <h1 style='text-align: left; color: #FF6A95; font-size:16px; "
-                    f"font-family:Avenir; font-weight:normal'>"
+                    f"font-family:Arial; font-weight:normal'>"
                     f"EmoSense is developed by Lucia Fang</h1> "
                     , unsafe_allow_html=True)
 
