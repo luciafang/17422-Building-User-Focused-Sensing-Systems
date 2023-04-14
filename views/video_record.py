@@ -25,11 +25,13 @@ def video_frame_callback(frame: av.VideoFrame) -> av.VideoFrame:
 
 def load_view():
     emotions_list = ['angry', 'fear', 'neutral', 'sad', 'disgust', 'happy', 'surprise']
-    RECORD_DIR = Path(str.join('', ("./records", f"/{st.session_state.user}")))
-    RECORD_DIR.mkdir(exist_ok=True)
+    HERE = Path(__file__).resolve().parent.parent
+
+    RECORD_DIR = os.path.join(HERE, f"./records/{st.session_state.user}")
+    os.makedirs(RECORD_DIR, exist_ok=True)
     currentDateAndTime = datetime.datetime.now()
     prefix = currentDateAndTime.strftime("%Y-%m-%d_%H-%M")
-    out_file = RECORD_DIR / f"{prefix}.mp4"
+    out_file = os.path.join(RECORD_DIR, f"./{prefix}.mp4")
 
     # def in_recorder_factory() -> MediaRecorder:
     #     return MediaRecorder(
