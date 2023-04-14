@@ -174,7 +174,7 @@ def load_view():
     RECORD_DIR = os.path.join(HERE, f"./records/{st.session_state.user}")
     os.makedirs(RECORD_DIR, exist_ok=True)
     # file_expander = st.expander('', expanded=True)
-    st.divider()
+    st.write("---")
     example_video = st.file_uploader('',
                                      accept_multiple_files=False,
                                      key='video')
