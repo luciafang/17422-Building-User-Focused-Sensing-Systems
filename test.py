@@ -1,37 +1,64 @@
-import threading
+import uuid
+from pathlib import Path
 
+import av
 import cv2
 import streamlit as st
-from matplotlib import pyplot as plt
-
-from streamlit_webrtc import webrtc_streamer
-
-lock = threading.Lock()
-img_container = {"img": None}
+from aiortc.contrib.media import MediaRecorder
+from streamlit_webrtc import WebRtcMode, webrtc_streamer
 
 
-def video_frame_callback(frame):
+def video_frame_callback(frame: av.VideoFrame) -> av.VideoFrame:
     img = frame.to_ndarray(format="bgr24")
-    with lock:
-        img_container["img"] = img
 
-    return frame
+    # perform edge detection
+    img = cv2.cvtColor(cv2.Canny(img, 100, 200), cv2.COLOR_GRAY2BGR)
+
+    return av.VideoFrame.from_ndarray(img, format="bgr24")
 
 
-ctx = webrtc_streamer(key="example",
+RECORD_DIR = Path("./records")
+RECORD_DIR.mkdir(exist_ok=True)
 
-                      video_frame_callback=video_frame_callback)
+def app():
+    if "prefix" not in st.session_state:
+        st.session_state["prefix"] = str(uuid.uuid4())
+    prefix = st.session_state["prefix"]
+    in_file = RECORD_DIR / f"{prefix}_input.mp4"
+    out_file = RECORD_DIR / f"{prefix}_output.mp4"
 
-fig_place = st.empty()
-fig, ax = plt.subplots(1, 1)
+    def in_recorder_factory() -> MediaRecorder:
+        return MediaRecorder(
+            str(in_file), format="mp4"
+        )  # HLS does not work. See https://github.com/aiortc/aiortc/issues/331
 
-while ctx.state.playing:
-    with lock:
-        img = img_container["img"]
-    if img is None:
-        continue
-    gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
-    print(img.shape)
-    ax.cla()
-    ax.hist(gray.ravel(), 256, [0, 256])
-    fig_place.pyplot(fig)
+    def out_recorder_factory() -> MediaRecorder:
+        return MediaRecorder(str(out_file), format="flv")
+
+    webrtc_streamer(
+        key="record",
+        mode=WebRtcMode.SENDRECV,
+        rtc_configuration={"iceServers": [{"urls": ["stun:stun.l.google.com:19302"]}]},
+        media_stream_constraints={
+            "video": True,
+            "audio": True,
+        },
+        video_frame_callback=video_frame_callback,
+        in_recorder_factory=in_recorder_factory,
+        out_recorder_factory=out_recorder_factory,
+    )
+
+    if in_file.exists():
+        with in_file.open("rb") as f:
+            st.download_button(
+                "Download the recorded video without video filter", f, "input.mp4"
+            )
+    if out_file.exists():
+        with out_file.open("rb") as f:
+            st.download_button(
+                "Download the recorded video with video filter", f, "output.mp4"
+            )
+
+
+if __name__ == "__main__":
+    app()

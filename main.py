@@ -1,5 +1,5 @@
 import streamlit as st
-from views import home, speech, face, recommendation
+from views import home, speech, face, recommendation, video_record
 from streamlit_option_menu import option_menu
 import streamlit_authenticator as stauth
 import yaml
@@ -90,8 +90,13 @@ elif authentication_status:
                     unsafe_allow_html=True)
         if 'user' not in st.session_state:
             st.session_state.user = username
-        selected = option_menu(None, ["home", "speech analysis", "expression analysis", 'music recommendation'],
-                               icons=['house', 'soundwave', "emoji-laughing", 'file-earmark-music'],
+        st.markdown(f" <h1 style='text-align: center; color: #FF6A95; font-size:18px; "
+                    f"font-family:Avenir ;font-weight:normal;'>Hello, {name}!</h1> "
+                    , unsafe_allow_html=True)
+        selected = option_menu(None, ["Home", "speech analysis", "expression analysis", 'music recommendation',
+                                      "Record Video"],
+                               icons=['house', 'soundwave', "emoji-laughing", 'file-earmark-music',
+                                      "record-circle"],
                                menu_icon="cast", default_index=0,
                                # orientation="horizontal",
                                styles={
@@ -109,7 +114,7 @@ elif authentication_status:
 
 
     def navigation():
-        if selected == "home":
+        if selected == "Home":
             home.load_view()
         elif selected == "speech analysis":
             speech.load_view()
@@ -117,6 +122,8 @@ elif authentication_status:
             face.load_view()
         elif selected == "music recommendation":
             recommendation.load_view()
+        elif selected == "Record Video":
+            video_record.load_view()
         elif selected == None:
             home.load_view()
 
