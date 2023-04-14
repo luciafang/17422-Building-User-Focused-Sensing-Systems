@@ -68,9 +68,7 @@ def load_view():
             with col1:
                 col1_expander = st.expander('', expanded=True)
                 col1_expander.video(video_filename)
-                if col1_expander.button(':red[Delete video]', key=f'delete_{vid_counter}'):
-                    os.remove(video_filename)
-                    st.experimental_rerun()
+
                 output_file = str.join('',
                                        (
                                            video_filename.rpartition('.mp4')[0],
@@ -86,6 +84,12 @@ def load_view():
                     # recognize (convert from speech to text)
                     user_text = r.recognize_google(audio_data)
                 col1_expander.write(user_text)
+                if col1_expander.button('Delete video',
+                                        key=f'delete_{vid_counter}'):
+                    os.remove(video_filename)
+                    os.remove(str.join('', (video_filename.rpartition('.mp4')[0],
+                                            '.wav')))
+                    st.experimental_rerun()
 
         elif vid_counter % 3 == 1:
             with col2:
