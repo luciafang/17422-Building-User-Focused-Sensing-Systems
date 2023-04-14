@@ -184,7 +184,7 @@ def load_view():
     bottom_cont = st.container()
     with bottom_cont:
         st.markdown("""---""")
-        st.markdown(f" <h1 style='text-align: left; color: gray; font-size:16px; "
+        st.markdown(f" <h1 style='text-align: left; color: #; font-size:16px; "
                     f"font-family:Avenir; font-weight:normal'>"
-                    f"Emotion2Music is developed by Lucia Fang</h1> "
+                    f"EmoSense is developed by Lucia Fang</h1> "
                     , unsafe_allow_html=True)
