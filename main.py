@@ -1,5 +1,5 @@
 import streamlit as st
-from views import *
+from views import home, video_record
 from streamlit_option_menu import option_menu
 import streamlit_authenticator as stauth
 import yaml
