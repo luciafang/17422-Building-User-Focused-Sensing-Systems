@@ -16,27 +16,38 @@ from deepface import DeepFace
 from deepface.commons import functions
 
 
-def analyze_emotions(video_file, f_container):
-    emotions_list = ['angry', 'disgust', 'happy', 'neutral', 'sad', 'fear', 'surprise']
+def analyze_emotions(video_file, f_container, vid_counter):
     colors_list = ['firebrick', 'peru', 'gold', 'olivedrab', 'royalblue', 'indigo', 'hotpink']
     chatbot = Chatbot(config={
         "access_token": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6Ik1UaEVOVUpHTkVNMVFURTRNMEZCTWpkQ05UZzVNRFUxUlRVd1FVSkRNRU13UmtGRVFrRXpSZyJ9.eyJodHRwczovL2FwaS5vcGVuYWkuY29tL3Byb2ZpbGUiOnsiZW1haWwiOiJhaHN1MkBhbmRyZXcuY211LmVkdSIsImVtYWlsX3ZlcmlmaWVkIjp0cnVlfSwiaHR0cHM6Ly9hcGkub3BlbmFpLmNvbS9hdXRoIjp7InVzZXJfaWQiOiJ1c2VyLVF1QmtPRDFxVDRQc0dRRklmQjZtZjB5RSJ9LCJpc3MiOiJodHRwczovL2F1dGgwLm9wZW5haS5jb20vIiwic3ViIjoiYXV0aDB8NjQxZGU4YTYzOTU5M2Q4NGU0NjQ5YzRlIiwiYXVkIjpbImh0dHBzOi8vYXBpLm9wZW5haS5jb20vdjEiLCJodHRwczovL29wZW5haS5vcGVuYWkuYXV0aDBhcHAuY29tL3VzZXJpbmZvIl0sImlhdCI6MTY4MDkyNTY4OCwiZXhwIjoxNjgyMTM1Mjg4LCJhenAiOiJUZEpJY2JlMTZXb1RIdE45NW55eXdoNUU0eU9vNkl0RyIsInNjb3BlIjoib3BlbmlkIHByb2ZpbGUgZW1haWwgbW9kZWwucmVhZCBtb2RlbC5yZXF1ZXN0IG9yZ2FuaXphdGlvbi5yZWFkIG9mZmxpbmVfYWNjZXNzIn0.xZpIfzn2H_-dEVFidxuKL6-oiXV53ycskvVqFF7GsLIBuVaP1VjYbN_QfUVt0LbN1kGi0qmb2DHLCD6mBfv_xtd5ojQs3kLLJNye81Cq0NF5bHiyYXrCsP2R2Rw49g9RHPeJtfptE-0BY30KEjNJ2HglWpcOupbiPCcCtQsNqTcc5jJlMhWhBLW4Xjm3EomoWKUdST8zpvruz8nuoSc3UHR3fiH1UcyTNomjwTTr0KIwZi6gAsJGMd83Vkn-E-5Ba0hs_TEZRZ075ML4ccZUJUDD2mmfh-WfvQccN7USeevFjQkqGSsjngxrKpL4w8_TMyH53A7HmQvL0kfM-ibl8g"
     })
+    emotions_list_default = ['angry', 'disgust', 'happy', 'neutral', 'sad', 'fear', 'surprise']
     lang_selected = f_container.radio('select language',
                                       ('English', '中文',
                                        'Español', 'Français'),
-                                      horizontal=True)
+                                      horizontal=True, key=f'language_{vid_counter}')
     if lang_selected == 'English':
         lang = 'en-US'
+        emotions_list = ['angry', 'disgust', 'happy', 'neutral', 'sad', 'fear', 'surprise']
+        default_prompt_1 = "Of the following emotions: "
         default_prompt = "which am I most likely feeling right now. " \
                          "Pick only one."
     elif lang_selected == '中文':
         lang = 'zh-CN'
+        emotions_list = ['愤怒', '厌恶', '快乐', '中性', '悲伤', '恐惧', '惊讶']
+        default_prompt_1 = "下列情绪之一："
+        default_prompt = "我现在最有可能感觉到的是什么。只选一个。"
     elif lang_selected == 'Español':
         lang = 'es-MX'
+        emotions_list = ['enojado', 'asco', 'feliz', 'neutral', 'triste', 'miedo', 'sorpresa']
+        default_prompt_1 = "De las siguientes emociones:"
+        default_prompt = "que es lo más probable que estoy sintiendo en este momento. Elige solo uno."
     elif lang_selected == 'Français':
         lang = 'fr-FR'
-    if f_container.button('analyze this video'):
+        emotions_list = ['en colère', 'dégoût', 'heureux', 'neutre', 'triste', 'peur', 'surprise']
+        default_prompt_1 = "Parmi les émotions suivantes :"
+        default_prompt = "ce que je ressens très probablement en ce moment. Choisissez-en un seul."
+    if f_container.button('analyze this video', key=f'analyzebutton_{vid_counter}'):
         output_file = str.join('',
                                (video_file.rpartition('.mp4')[0], '.wav'))
         sound = AudioFileClip(video_file)
@@ -54,7 +65,7 @@ def analyze_emotions(video_file, f_container):
         cap = cv2.VideoCapture(video_file)
         length = int(cap.get(cv2.CAP_PROP_FRAME_COUNT))
         framerate = cap.get(cv2.CAP_PROP_FPS)
-        emotion_dict = {key: [] for key in emotions_list}
+        emotion_dict = {key: [] for key in emotions_list_default}
         my_bar = f_container.progress(0)
         frame_counter = 0
         while True:
@@ -182,7 +193,8 @@ def analyze_emotions(video_file, f_container):
             my_bar.progress((frame_counter) / length)
         final_emo_counts = {'emotion': emotions_list,
                             'colors': colors_list,
-                            'counts': np.hstack([len(emotion_dict[emo]) for emo in emotions_list])}
+                            'counts': np.hstack([len(emotion_dict[emo]) for emo in emotions_list_default])}
+
         final_emo_df = pd.DataFrame(data=final_emo_counts)
         fig = go.Figure(data=[go.Pie(labels=final_emo_df["emotion"],
                                      values=final_emo_df["counts"], hole=.4)])
@@ -200,8 +212,10 @@ def analyze_emotions(video_file, f_container):
         for index, instance in final_emo_df.iterrows():
             if index < 3:  # limited to Top3
                 current_emotion.append(instance["emotion"])
-        prompt = f"{user_text}. Of the following emotions: {', '.join(current_emotion)}, {default_prompt}"
-        # st.write(prompt)
+
+        prompt = f"{user_text}. {default_prompt_1} {', '.join(current_emotion)}, {default_prompt}"
+        # f_container.write(prompt)
+
         # revchatGPT
         with st.spinner("Inquiring large language model's response..."):
             response = ""
@@ -211,14 +225,6 @@ def analyze_emotions(video_file, f_container):
             ):
                 response = data["message"]
         f_container.write(f'ChatGPT: {response}')
-        # for e, emotion in enumerate(emotions_list):
-        #     if emotion in response:
-        #         emotion_from_speech = emotion
-        # if emotion_from_speech in current_emotion:
-        #     # st.write(speech_emotion)
-        #     determined_emotion = speech_emotion[0]
-
-        # return response
 
 
 def load_view():
@@ -256,10 +262,7 @@ def load_view():
             with col1:
                 col1_expander = st.expander('', expanded=True)
                 col1_expander.video(video_filename)
-                analyze_emotions(video_filename, col1_expander)
-
-                # st.write(determined_emotion)
-
+                analyze_emotions(video_filename, col1_expander, vid_counter)
                 if col1_expander.button('Delete video',
                                         key=f'delete_{vid_counter}'):
                     os.remove(video_filename)
@@ -270,7 +273,7 @@ def load_view():
             with col2:
                 col2_expander = st.expander('', expanded=True)
                 col2_expander.video(video_filename)
-                analyze_emotions(video_filename, col2_expander)
+                analyze_emotions(video_filename, col2_expander, vid_counter)
                 if col2_expander.button('Delete video',
                                         key=f'delete_{vid_counter}'):
                     os.remove(video_filename)
@@ -281,7 +284,7 @@ def load_view():
             with col3:
                 col3_expander = st.expander('', expanded=True)
                 col3_expander.video(video_filename)
-                analyze_emotions(video_filename, col3_expander)
+                analyze_emotions(video_filename, col3_expander, vid_counter)
                 if col3_expander.button('Delete video',
                                         key=f'delete_{vid_counter}'):
                     os.remove(video_filename)
