@@ -1,5 +1,5 @@
 import streamlit as st
-from views import home, speech, face, recommendation, video_record
+from views import *
 from streamlit_option_menu import option_menu
 import streamlit_authenticator as stauth
 import yaml
@@ -78,7 +78,7 @@ if not authentication_status:
     bottom_cont = st.container()
     _, bottom_mid, _ = bottom_cont.columns([1, 4, 1])
     with bottom_mid:
-        st.markdown("""---""")
+        # st.markdown("""---""")
         st.markdown(f" <h1 style='text-align: center; color: #FF6A95; font-size:16px; "
                     f"font-family:Arial; font-weight:normal'>"
                     f"EmoSense is developed by Lucia Fang</h1> "

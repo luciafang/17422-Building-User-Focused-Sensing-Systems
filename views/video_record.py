@@ -141,12 +141,6 @@ def analyze_video_emotions(video_file, f_container):
                                     current_emotion.append(instance["emotion"])
                                     # emotion_label = f"{current_emotion} "
                                     emotion_score.append(instance["score"] / 100)
-                # st.write(current_emotion[0])
-                # emotion_expander.table(emotion_df)  # place a table on the right
-                # st.success(
-                #     f'Based on your expression, you are most likely feeling: {current_emotion[0]}')  # use the highest emotin score
-                # np.save('./facial_emotion.npy', current_emotion)
-
                 emotion_dict[current_emotion[0]].append(frame_counter)
             frame_counter += 1
             my_bar.progress((frame_counter) / length)
@@ -173,7 +167,6 @@ def load_view():
     st.write('')
     RECORD_DIR = os.path.join(HERE, f"./records/{st.session_state.user}")
     os.makedirs(RECORD_DIR, exist_ok=True)
-    # file_expander = st.expander('', expanded=True)
     st.write("---")
     example_video = st.file_uploader('',
                                      accept_multiple_files=False,
