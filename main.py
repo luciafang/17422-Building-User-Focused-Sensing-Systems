@@ -93,21 +93,6 @@ elif authentication_status:
         st.markdown(f" <h1 style='text-align: center; color: #FF6A95; font-size:18px; "
                     f"font-family:Arial ;font-weight:normal;'>Hello, {name}!</h1> "
                     , unsafe_allow_html=True)
-        # selected = option_menu(None, ["Home", "speech analysis", "expression analysis", 'music recommendation',
-        #                               "Record Video"],
-        #                        icons=['house', 'soundwave', "emoji-laughing", 'file-earmark-music',
-        #                               "record-circle"],
-        #                        menu_icon="cast", default_index=0,
-        #                        # orientation="horizontal",
-        #                        styles={
-        #                            "container": {"padding": "0!important", "background-color": "#fafafa"},
-        #                            "icon": {"color": "black", "font-size": "20px"},
-        #                            "nav-link": {"color": "black", "font-size": "16px", "text-align": "center", "margin": "0px",
-        #                                         "--hover-color": "#eee"},
-        #                            "nav-link-selected": {"font-size": "16px", "font-weight": "normal",
-        #                                                  "color": "black", "background-color":"#CCADCF"},
-        #                        }
-        #                        )
 
         selected = option_menu(None, ["Home",
                                       "Record Video"],
@@ -133,12 +118,6 @@ elif authentication_status:
     def navigation():
         if selected == "Home":
             home.load_view()
-        # elif selected == "speech analysis":
-        #     speech.load_view()
-        # elif selected == "expression analysis":
-        #     face.load_view()
-        # elif selected == "music recommendation":
-        #     recommendation.load_view()
         elif selected == "Record Video":
             video_record.load_view()
         elif selected == None:
