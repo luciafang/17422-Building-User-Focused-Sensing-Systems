@@ -277,51 +277,64 @@ def analyze_emotions(video_file, f_container):
 def load_view():
     HERE = Path(__file__).resolve().parent.parent
     st.markdown(f" <h1 style='text-align: left; color: #FF6A95; font-size:30px; "
-                f"font-family:Arial; font-weight:normal;'>Analyze Emotions, Upload Video Now! </h1> "
+                f"font-family:Arial; font-weight:normal;'>Access Previous Recordings! </h1> "
                 , unsafe_allow_html=True)
     st.write('')
     RECORD_DIR = os.path.join(HERE, f"./records/{st.session_state.user}")
     os.makedirs(RECORD_DIR, exist_ok=True)
     st.write("---")
-    example_video = st.file_uploader('',
-                                     accept_multiple_files=False,
-                                     label_visibility='collapsed',
-                                     key='video')
+    # example_video = st.file_uploader('',
+    #                                  accept_multiple_files=False,
+    #                                  label_visibility='collapsed',
+    #                                  key='video')
     # copy video to local, only when csv and mp4/avi are uploaded
-    if example_video is not None:
-        if os.path.exists(example_video.name):
-            out_file = os.path.join(RECORD_DIR,
-                                    f"./{str.join('', (example_video.name.rpartition('.')[0], '.mp4'))}")
-            temporary_location = f'{out_file}'
-        else:
-            g = io.BytesIO(example_video.read())  # BytesIO Object
-            out_file = os.path.join(RECORD_DIR,
-                                    f"./{str.join('', (example_video.name.rpartition('.')[0], '.mp4'))}")
-            temporary_location = f'{out_file}'
-            with open(temporary_location, 'wb') as out:  # Open temporary file as bytes
-                out.write(g.read())  # Read bytes into file
-            out.close()
+    # if example_video is not None:
+    #     if os.path.exists(example_video.name):
+    #         out_file = os.path.join(RECORD_DIR,
+    #                                 f"./{str.join('', (example_video.name.rpartition('.')[0], '.mp4'))}")
+    #         temporary_location = f'{out_file}'
+    #     else:
+    #         g = io.BytesIO(example_video.read())  # BytesIO Object
+    #         out_file = os.path.join(RECORD_DIR,
+    #                                 f"./{str.join('', (example_video.name.rpartition('.')[0], '.mp4'))}")
+    #         temporary_location = f'{out_file}'
+    #         with open(temporary_location, 'wb') as out:  # Open temporary file as bytes
+    #             out.write(g.read())  # Read bytes into file
+    #         out.close()
     try:
-        video_filename = temporary_location
+        meta_files = glob.glob(f"{RECORD_DIR}/*.npy")
+        datetime_ = []
+        videos_ = []
+        for meta_file in meta_files:
+            meta_data = np.load(meta_file, allow_pickle=True).item()
+            datetime_.append(meta_data['datetime'])
+            videos_.append(meta_data['video'])
+        datetime_selected = st.selectbox('', datetime_, label_visibility='collapsed')
+        video_filename = videos_[datetime_.index(datetime_selected)]
+
+    # vid_counter = 0
+
+    # for video_filename in glob.glob(f"{RECORD_DIR}/*.mp4"):
+
         vid_expander = st.expander('', expanded=True)
         vid_placeholder, analysis_placeholder = vid_expander.columns(2)
         vid_placeholder.video(video_filename)
         analyze_emotions(video_filename, analysis_placeholder)
-        # if analysis_placeholder.button('Delete video',
-        #                                key=f'delete'):
-        #     try:
-        #         os.remove(video_filename)
-        #         os.remove(str.join('', (video_filename.rpartition('.mp4')[0],
-        #                                 '.wav')))
-        #         os.remove(str.join('', (video_filename.rpartition('.mp4')[0],
-        #                                 '.csv')))
-        #         os.remove(str.join('', (video_filename.rpartition('.mp4')[0],
-        #                                 '.txt')))
-        #         os.remove(str.join('', (video_filename.rpartition('.mp4')[0],
-        #                                 '.npy')))
-        #         st.experimental_rerun()
-        #     except:
-        #         pass
+        if analysis_placeholder.button('Delete video',
+                                       key=f'delete'):
+            try:
+                os.remove(video_filename)
+                os.remove(str.join('', (video_filename.rpartition('.mp4')[0],
+                                        '.wav')))
+                os.remove(str.join('', (video_filename.rpartition('.mp4')[0],
+                                        '.csv')))
+                os.remove(str.join('', (video_filename.rpartition('.mp4')[0],
+                                        '.txt')))
+                os.remove(str.join('', (video_filename.rpartition('.mp4')[0],
+                                        '.npy')))
+                st.experimental_rerun()
+            except:
+                pass
     except:
         pass
     # vid_counter += 1
