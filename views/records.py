@@ -301,6 +301,7 @@ def load_view():
     #         with open(temporary_location, 'wb') as out:  # Open temporary file as bytes
     #             out.write(g.read())  # Read bytes into file
     #         out.close()
+
     try:
         meta_files = glob.glob(f"{RECORD_DIR}/*.npy")
         datetime_ = []
@@ -312,6 +313,7 @@ def load_view():
         datetime_selected = st.selectbox('', datetime_, label_visibility='collapsed')
         video_filename = videos_[datetime_.index(datetime_selected)]
 
+
     # vid_counter = 0
 
     # for video_filename in glob.glob(f"{RECORD_DIR}/*.mp4"):
@@ -320,8 +322,10 @@ def load_view():
         vid_placeholder, analysis_placeholder = vid_expander.columns(2)
         vid_placeholder.video(video_filename)
         analyze_emotions(video_filename, analysis_placeholder)
+
         if analysis_placeholder.button('Delete video',
                                        key=f'delete'):
+
             try:
                 os.remove(video_filename)
                 os.remove(str.join('', (video_filename.rpartition('.mp4')[0],
