@@ -18,6 +18,7 @@ from deepface.commons import functions
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 def analyze_video_emotions(video_file, f_container):
     emotions_list = ['angry', 'disgust', 'happy', 'neutral', 'sad', 'fear', 'surprise']
     colors_list = ['firebrick', 'peru', 'gold', 'olivedrab', 'royalblue', 'indigo', 'hotpink']
@@ -36,6 +37,8 @@ def analyze_video_emotions(video_file, f_container):
             distance_metric = "cosine"
             enable_face_analysis = True
 =======
+=======
+>>>>>>> parent of 451fec1 (split records and new videos into two tabs)
 =======
 >>>>>>> parent of 451fec1 (split records and new videos into two tabs)
 def analyze_emotions(video_file, f_container, vid_counter):
@@ -430,7 +433,10 @@ def load_view():
             out.close()
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
+=======
+>>>>>>> parent of 451fec1 (split records and new videos into two tabs)
 =======
 >>>>>>> parent of 451fec1 (split records and new videos into two tabs)
 
@@ -455,6 +461,9 @@ def load_view():
                 pass
         vid_counter += 1
 <<<<<<< HEAD
+<<<<<<< HEAD
+>>>>>>> parent of 451fec1 (split records and new videos into two tabs)
+=======
 >>>>>>> parent of 451fec1 (split records and new videos into two tabs)
 =======
 >>>>>>> parent of 451fec1 (split records and new videos into two tabs)
