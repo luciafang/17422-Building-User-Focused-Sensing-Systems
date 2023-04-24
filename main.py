@@ -1,5 +1,5 @@
 import streamlit as st
-from views import home, video_record, records
+from views import home, video_record
 from streamlit_option_menu import option_menu
 import streamlit_authenticator as stauth
 import yaml
@@ -95,11 +95,9 @@ elif authentication_status:
                     , unsafe_allow_html=True)
 
         selected = option_menu(None, ["Home",
-                                      "New Video",
-                                      "Records"],
+                                      "Record Video"],
                                icons=['house',
-                                      "record-circle",
-                                      "folder2-open"],
+                                      "record-circle"],
                                menu_icon="cast", default_index=0,
                                # orientation="horizontal",
                                styles={
@@ -120,10 +118,8 @@ elif authentication_status:
     def navigation():
         if selected == "Home":
             home.load_view()
-        elif selected == "New Video":
+        elif selected == "Record Video":
             video_record.load_view()
-        elif selected == "Records":
-            records.load_view()
         elif selected == None:
             home.load_view()
 
