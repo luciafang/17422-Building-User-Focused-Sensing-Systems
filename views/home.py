@@ -7,25 +7,28 @@ def load_view():
                 , unsafe_allow_html=True)
     st.write('')
     st.markdown("""---""")
-    st.markdown(f" <h1 style='text-align: left; color: #505050; font-size:18px; "
+    description_box = st.expander('EmoSense description', expanded=False)
+    st.video('./videos/emosense.mp4')
+
+    description_box.markdown(f" <h1 style='text-align: left; color: #505050; font-size:18px; "
                 f"font-family:Arial; font-weight:normal;'>"
                 f"""Introducing "EmoSense", the cutting-edge no code website for emotion analysis. </h1> """
                 , unsafe_allow_html=True)
-    st.markdown(f" <h1 style='text-align: left; color: #505050; font-size:18px; "
+    description_box.markdown(f" <h1 style='text-align: left; color: #505050; font-size:18px; "
                 f"font-family:Arial; font-weight:normal;'>"
                 f"""With our platform, you can easily record videos of individuals talking about their day,
     extract images for facial expression prediction, and extract audio for semantic expression prediction. 
     By combining both data sources, EmoSense offers a holistic emotional classification 
     that provides deeper insights into an individual's emotional state. </h1> """
                 , unsafe_allow_html=True)
-    st.markdown(f" <h1 style='text-align: left; color: #505050; font-size:18px; "
+    description_box.markdown(f" <h1 style='text-align: left; color: #505050; font-size:18px; "
                 f"font-family:Arial; font-weight:normal;'>"
                 f"""Our platform offers detailed and rigorous analysis, 
     enabling you to identify emotional trends and patterns that may be affecting the individual's well-being. 
     With our reactive visualization design, you can explore and interpret the data in real-time, 
     gaining insights that would be impossible to identify otherwise. </h1> """
                 , unsafe_allow_html=True)
-    st.markdown(f" <h1 style='text-align: left; color: #505050; font-size:18px; "
+    description_box.markdown(f" <h1 style='text-align: left; color: #505050; font-size:18px; "
                 f"font-family:Arial; font-weight:normal;'>"
                 f"""And for those seeking professional help, 
     EmotionSense offers the ability to download previous recordings for therapists to listen to, 
