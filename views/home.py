@@ -8,7 +8,7 @@ def load_view():
     st.write('')
     st.markdown("""---""")
     description_box = st.expander('EmoSense description', expanded=False)
-    st.video('./videos/emosense.mp4')
+    st.video('./videos/emosense_small.mp4')
 
     description_box.markdown(f" <h1 style='text-align: left; color: #505050; font-size:18px; "
                 f"font-family:Arial; font-weight:normal;'>"
