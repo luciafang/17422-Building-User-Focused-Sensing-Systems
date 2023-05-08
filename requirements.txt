@@ -136,6 +136,7 @@ streamlit-authenticator==0.2.1
 streamlit-bokeh-events==0.1.2
 streamlit-option-menu==0.3.2
 streamlit-webrtc==0.45.0
+tenacity==8.2.2
 tensorboard==2.11.2
 tensorboard-data-server==0.6.1
 tensorboard-plugin-wit==1.8.1
