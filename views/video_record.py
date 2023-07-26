@@ -103,7 +103,7 @@ def analyze_emotions(video_file, f_container):
                 audio_data = r.record(source)
                 # recognize (convert from speech to text)
                 user_text = r.recognize_google(audio_data, language=lang)
-            st.write(user_text)
+            # st.write(user_text)
 
             cap = cv2.VideoCapture(video_file)
             length = int(cap.get(cv2.CAP_PROP_FRAME_COUNT))
