@@ -19,7 +19,9 @@ from deepface.commons import functions
 
 def analyze_emotions(video_file, f_container):
     colors_list = ['firebrick', 'peru', 'gold', 'olivedrab', 'royalblue', 'indigo', 'hotpink']
-    chatbot = Chatbot(api_key="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")
+    chatbot = Chatbot(config={
+        "access_token": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6Ik1UaEVOVUpHTkVNMVFURTRNMEZCTWpkQ05UZzVNRFUxUlRVd1FVSkRNRU13UmtGRVFrRXpSZyJ9.eyJodHRwczovL2FwaS5vcGVuYWkuY29tL3Byb2ZpbGUiOnsiZW1haWwiOiJhaHN1MkBhbmRyZXcuY211LmVkdSIsImVtYWlsX3ZlcmlmaWVkIjp0cnVlfSwiaHR0cHM6Ly9hcGkub3BlbmFpLmNvbS9hdXRoIjp7InVzZXJfaWQiOiJ1c2VyLVF1QmtPRDFxVDRQc0dRRklmQjZtZjB5RSJ9LCJpc3MiOiJodHRwczovL2F1dGgwLm9wZW5haS5jb20vIiwic3ViIjoiYXV0aDB8NjQxZGU4YTYzOTU5M2Q4NGU0NjQ5YzRlIiwiYXVkIjpbImh0dHBzOi8vYXBpLm9wZW5haS5jb20vdjEiLCJodHRwczovL29wZW5haS5vcGVuYWkuYXV0aDBhcHAuY29tL3VzZXJpbmZvIl0sImlhdCI6MTY5MDM5NDMxNywiZXhwIjoxNjkxNjAzOTE3LCJhenAiOiJUZEpJY2JlMTZXb1RIdE45NW55eXdoNUU0eU9vNkl0RyIsInNjb3BlIjoib3BlbmlkIHByb2ZpbGUgZW1haWwgbW9kZWwucmVhZCBtb2RlbC5yZXF1ZXN0IG9yZ2FuaXphdGlvbi5yZWFkIG9yZ2FuaXphdGlvbi53cml0ZSBvZmZsaW5lX2FjY2VzcyJ9.FWTV15D17QbFo9qNNp6RzW6Ma3bOr7mr2BAQGlRUOBADBM33WBkXiadHmKcu94HM6kyogozOq_hjZqFrgIKT6r7smyeaXdyZK34ovIJ9ukuR9ikIOz0udGeqwYKdVA2dY02q_v7Xus-m25BAfpuVo_0vlJ2LoGOo6XBLY_hGilshFuzYnEUftU78JbPvTIQo1PIBH95q6PwWxuOot8bsxI5uzLE25SOdj1T3524CQpHRrE1YFp8emBaMgyN-biQ0_NOr_KXBmO2VejxiAE-8TRXf8Zeugo7E6XmRbjguKYJ73j2Fmjh2mJdNP3LETNAuvcM0DldF6WTjtoRTM7-Rng"
+    })
     emotions_list_default = ['angry', 'disgust', 'happy', 'neutral', 'sad', 'fear', 'surprise']
     lang_selected = f_container.radio('select language',
                                       ('English', '中文',
