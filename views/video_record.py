@@ -19,9 +19,7 @@ from deepface.commons import functions
 
 def analyze_emotions(video_file, f_container):
     colors_list = ['firebrick', 'peru', 'gold', 'olivedrab', 'royalblue', 'indigo', 'hotpink']
-    chatbot = Chatbot(config={
-        "access_token": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6Ik1UaEVOVUpHTkVNMVFURTRNMEZCTWpkQ05UZzVNRFUxUlRVd1FVSkRNRU13UmtGRVFrRXpSZyJ9.eyJodHRwczovL2FwaS5vcGVuYWkuY29tL3Byb2ZpbGUiOnsiZW1haWwiOiJhaHN1MkBhbmRyZXcuY211LmVkdSIsImVtYWlsX3ZlcmlmaWVkIjp0cnVlfSwiaHR0cHM6Ly9hcGkub3BlbmFpLmNvbS9hdXRoIjp7InVzZXJfaWQiOiJ1c2VyLVF1QmtPRDFxVDRQc0dRRklmQjZtZjB5RSJ9LCJpc3MiOiJodHRwczovL2F1dGgwLm9wZW5haS5jb20vIiwic3ViIjoiYXV0aDB8NjQxZGU4YTYzOTU5M2Q4NGU0NjQ5YzRlIiwiYXVkIjpbImh0dHBzOi8vYXBpLm9wZW5haS5jb20vdjEiLCJodHRwczovL29wZW5haS5vcGVuYWkuYXV0aDBhcHAuY29tL3VzZXJpbmZvIl0sImlhdCI6MTY4MjMwNTQyNiwiZXhwIjoxNjgzNTE1MDI2LCJhenAiOiJUZEpJY2JlMTZXb1RIdE45NW55eXdoNUU0eU9vNkl0RyIsInNjb3BlIjoib3BlbmlkIHByb2ZpbGUgZW1haWwgbW9kZWwucmVhZCBtb2RlbC5yZXF1ZXN0IG9yZ2FuaXphdGlvbi5yZWFkIG9mZmxpbmVfYWNjZXNzIn0.0fG9hclbSqpit5dUVDl34Co7FdGNPyfNYdQE1Kxk2vOcksIz2K2a5jDpjTxpN9XyIgB4KK2fCFFX335dMOvyaiP1gLIDAI_ud-FzOtHxOqa3KmU8c1LpKlV7NchTr47zhKM315wNvwWkcpuPmqDtFuSgaRjrdsMGBKJ3q9IOgENRxuyaPEorK33JFP4MAuTrkvmh7iR1o-xgrti8dHFOJQQwf4uikeEzT_i13fA8060R9eRfSCdtLX-1gKTSIaKsyb1E7rhyDWFwux-uIIm1JSosVJ5epKkKSVa4Hcqp0-x0dfWUh3mY9ujZVsSsHpG7MBDUviObHy3ZADWtFQrt1Q"
-    })
+    chatbot = Chatbot(config={"access_token": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6Ik1UaEVOVUpHTkVNMVFURTRNMEZCTWpkQ05UZzVNRFUxUlRVd1FVSkRNRU13UmtGRVFrRXpSZyJ9.eyJodHRwczovL2FwaS5vcGVuYWkuY29tL3Byb2ZpbGUiOnsiZW1haWwiOiJhaHN1MkBhbmRyZXcuY211LmVkdSIsImVtYWlsX3ZlcmlmaWVkIjp0cnVlfSwiaHR0cHM6Ly9hcGkub3BlbmFpLmNvbS9hdXRoIjp7InVzZXJfaWQiOiJ1c2VyLVF1QmtPRDFxVDRQc0dRRklmQjZtZjB5RSJ9LCJpc3MiOiJodHRwczovL2F1dGgwLm9wZW5haS5jb20vIiwic3ViIjoiYXV0aDB8NjQxZGU4YTYzOTU5M2Q4NGU0NjQ5YzRlIiwiYXVkIjpbImh0dHBzOi8vYXBpLm9wZW5haS5jb20vdjEiLCJodHRwczovL29wZW5haS5vcGVuYWkuYXV0aDBhcHAuY29tL3VzZXJpbmZvIl0sImlhdCI6MTY5MDM5Nzk4NiwiZXhwIjoxNjkxNjA3NTg2LCJhenAiOiJUZEpJY2JlMTZXb1RIdE45NW55eXdoNUU0eU9vNkl0RyIsInNjb3BlIjoib3BlbmlkIHByb2ZpbGUgZW1haWwgbW9kZWwucmVhZCBtb2RlbC5yZXF1ZXN0IG9yZ2FuaXphdGlvbi5yZWFkIG9yZ2FuaXphdGlvbi53cml0ZSBvZmZsaW5lX2FjY2VzcyJ9.KBfBVRS8KoVfYKbRs7EaMy72_m8SUIBfWESaTy19x-ADI0uu3Bcj8qWJPVKRrLk5h-kgrACjFIYHrr72apzObKb9z1C_Bcjr08pUVZ-xSsl6mZOXpDDxbExWomx5tRy0ycE8ySOczEORbNn75kzEH9jR1ETlDBNyBcdJ81AdaFjL4nfJTyk7u8unlNyJoDV5qjExFv-5EqqEn2ThB5hPF8WdiNimStUWZYXm6xDhE38rqV0rrggHGKbeVm3cKcLwriVRzPdqBOKBm0w4KPgyWG-Er0rdw0eNsh7oF8CyC764VTVVhIrtOMOWfRz3Lzing7VIaIQPxCRPk-n7U8Kh5w"})
     emotions_list_default = ['angry', 'disgust', 'happy', 'neutral', 'sad', 'fear', 'surprise']
     lang_selected = f_container.radio('select language',
                                       ('English', '中文',
@@ -105,6 +103,7 @@ def analyze_emotions(video_file, f_container):
                 audio_data = r.record(source)
                 # recognize (convert from speech to text)
                 user_text = r.recognize_google(audio_data, language=lang)
+            st.write(user_text)
 
             cap = cv2.VideoCapture(video_file)
             length = int(cap.get(cv2.CAP_PROP_FRAME_COUNT))
@@ -249,6 +248,7 @@ def analyze_emotions(video_file, f_container):
                                           line=dict(color='#000000', width=1)))
             f_container.plotly_chart(fig, use_container_width=True)
             # select top 3
+            # st.write(final_emo_df)
             final_emo_df = final_emo_df.sort_values(
                 by=["counts"], ascending=False
             ).reset_index(drop=True)
@@ -256,24 +256,25 @@ def analyze_emotions(video_file, f_container):
             for index, instance in final_emo_df.iterrows():
                 if index < 3:  # limited to Top3
                     current_emotion.append(instance["emotion"])
+            # st.write(current_emotion)
+        # st.write(default_prompt)
+        prompt = f"{user_text}. {default_prompt_1} {', '.join(current_emotion)}, {default_prompt}"
+        # st.write(prompt)
+        # revchatGPT
+        with f_container:
+            with st.spinner("Inquiring large language model's response..."):
+                response = ""
+                # emotion_expander.write(f'User: {user_text}'
+                for data in chatbot.ask(
+                        prompt
+                ):
+                    response = data["message"]
 
-    prompt = f"{user_text}. {default_prompt_1} {', '.join(current_emotion)}, {default_prompt}"
-    # st.write(prompt)
-    # revchatGPT
-    with f_container:
-        with st.spinner("Inquiring large language model's response..."):
-            response = ""
-            # emotion_expander.write(f'User: {user_text}'
-            for data in chatbot.ask(
-                    prompt
-            ):
-                response = data["message"]
-
-    f_container.write(f'ChatGPT: {response}')
-    with open(output_txt, 'w') as f:
-        f.write(f'{st.session_state.user}: {user_text}')
-        f.write('\n')
-        f.write(f'ChatGPT: {response}')
+        f_container.write(f'ChatGPT: {response}')
+        with open(output_txt, 'w') as f:
+            f.write(f'{st.session_state.user}: {user_text}')
+            f.write('\n')
+            f.write(f'ChatGPT: {response}')
 
 
 def load_view():
