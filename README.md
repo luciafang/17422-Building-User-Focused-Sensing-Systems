@@ -30,6 +30,6 @@ Speech-to-Text API Key: Similarly, store your speech-to-text API key in the .env
 ### Running EmoSense
 streamlit run main.py
 
-# Usage
+### Usage
 Use EmoSense to record yourself speaking about any topic. The app will analyze your facial expressions and speech to provide a comprehensive emotion analysis. This can be particularly useful for mental health tracking, user experience studies, or any application where emotional feedback is valuable.
 
