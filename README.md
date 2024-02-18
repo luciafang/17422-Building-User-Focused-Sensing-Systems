@@ -1,6 +1,7 @@
 # EmoSense: Emotion Analysis Tool
 EmoSense is an innovative tool designed to analyze emotions by leveraging the power of cutting-edge machine learning technologies. It combines the visual emotion recognition capabilities of deepfaceML, the audio transcription accuracy of a speech-to-text ML algorithm, and the advanced understanding and processing abilities of OpenAI's GPT-3 through a command-line wrapper. This unique blend allows EmoSense to provide comprehensive emotion analysis from video recordings, making it an ideal tool for a wide range of applications including mental health assessment, user experience research, and interactive applications.
 
+
 # Features
 Visual Emotion Recognition: Utilizes deepfaceML to detect and analyze facial expressions in videos for emotion recognition.
 Speech-to-Text Transcription: Converts spoken words in videos into text using a state-of-the-art speech-to-text ML algorithm, enhancing the emotion analysis process.
