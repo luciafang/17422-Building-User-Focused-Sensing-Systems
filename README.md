@@ -20,7 +20,7 @@ OpenAI API key (for GPT-3 integration)
 Access to a speech-to-text ML API
 
 ### Installation
-1. Clone the repository: git clone https://github.com/yourusername/emosense.git
+1. Fork and clone the repository
 2. Navigate to the project directory: cd emosense
 3. Install the required Python dependencies: pip install -r requirements.txt
 4. Set up the command-line wrapper for OpenAI's GPT-3 (follow the instructions provided in the cli-wrapper directory).
