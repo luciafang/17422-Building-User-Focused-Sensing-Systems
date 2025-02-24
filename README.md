@@ -1,4 +1,4 @@
-# EmoSense: Emotion Analysis Tool
+# Project - EmoSense
 Here is the 2 mins demo for the application: https://www.youtube.com/watch?v=qg4M_2HnCCA
 
 
